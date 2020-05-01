@@ -207,10 +207,14 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  let tempStr = `┌${'─'.repeat(width - 2)}┐\n`;
+  for (let i = 1; i < height - 1; i += 1) {
+    tempStr += `│${' '.repeat(width - 2)}│\n`;
+  }
+  tempStr += `└${'─'.repeat(width - 2)}┘\n`;
+  return tempStr;
 }
-
 
 /**
  * Encode specified string with ROT13 cipher
@@ -228,8 +232,24 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const alphaLength = 26;
+  const la = 97;
+  const ua = 65;
+  const Rot13 = 13;
+  let arr = str.split('');
+  arr = arr.map((item) => {
+    let val = item.charCodeAt(0);
+    if (val >= ua && val <= ua + alphaLength) {
+      const tmp = (val - ua + Rot13) % alphaLength;
+      val = ua + tmp;
+    } else if (val >= la && val <= la + alphaLength) {
+      const tmp = (val - la + Rot13) % alphaLength;
+      val = la + tmp;
+    }
+    return String.fromCharCode(val);
+  });
+  return arr.join('');
 }
 
 /**
@@ -245,10 +265,10 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  return (value !== undefined && value !== null
+    && (typeof (value) === 'string' || value instanceof String));
 }
-
 
 /**
  * Returns playid card id.
@@ -274,10 +294,26 @@ function isString(/* value */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
-}
 
+function getCardId(value) {
+  const COLS = {
+    A: 0,
+    J: 10,
+    Q: 11,
+    K: 12,
+  };
+  const ROWS = {
+    '♣': 0,
+    '♦': 1,
+    '♥': 2,
+    '♠': 3,
+  };
+  const rowStr = value.substring(value.length - 1);
+  const colStr = value.substring(0, value.length - 1);
+  const row = ROWS[rowStr];
+  const column = (colStr in COLS === true) ? COLS[colStr] : parseInt(colStr, 10) - 1;
+  return row * 13 + column;
+}
 
 module.exports = {
   concatenateStrings,
