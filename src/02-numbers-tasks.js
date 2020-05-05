@@ -23,7 +23,6 @@ function getRectangleArea(width, height) {
   return width * height;
 }
 
-
 /**
  * Returns a circumference of circle given by radius.
  *
@@ -90,7 +89,6 @@ function getLinearEquationRoot(a, b) {
   return -b / a;
 }
 
-
 /**
  * Returns an angle (in radians) between two vectors given by xi and yi,
  * coordinates in Cartesian plane.
@@ -109,8 +107,11 @@ function getLinearEquationRoot(a, b) {
  *   (0,1) (0,1)     => 0
  *   (0,1) (1,2)     => 0
  */
-function getAngleBetweenVectors(/* x1, y1, x2, y2 */) {
-  throw new Error('Not implemented');
+function getAngleBetweenVectors(x1, y1, x2, y2) {
+  const skal = x1 * x2 + y1 * y2;
+  const len1 = Math.sqrt(y1 ** 2 + x1 ** 2);
+  const len2 = Math.sqrt(y2 ** 2 + x2 ** 2);
+  return Math.acos(skal / (len1 * len2));
 }
 
 /**
