@@ -323,8 +323,9 @@ function getPositivesCount(arr) {
  *   [ 'nine','eight','nine','eight'] => [ 'eight','eight','nine','nine']
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const strNum = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+  return arr.sort((item1, item2) => strNum.indexOf(item1) - strNum.indexOf(item2));
 }
 
 /**
@@ -440,8 +441,13 @@ function sortCitiesArray(/* arr */) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  const arr = new Array(n).fill(0).map((val, index) => {
+    const row = new Array(n).fill(0);
+    row[index] = 1;
+    return row;
+  });
+  return arr;
 }
 
 /**
@@ -457,8 +463,8 @@ function getIdentityMatrix(/* n */) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  return new Array(Math.abs(end - start) + 1).fill(0).map((val, index) => start + index);
 }
 
 /**
