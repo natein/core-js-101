@@ -27,8 +27,11 @@
  *  21 => 'Fizz'
  *
  */
-function getFizzBuzz(/* num */) {
-  throw new Error('Not implemented');
+function getFizzBuzz(num) {
+  if (num % 3 === 0 && num % 5 === 0) return 'FizzBuzz';
+  if (num % 5 === 0) return 'Buzz';
+  if (num % 3 === 0) return 'Fizz';
+  return num;
 }
 
 
@@ -43,8 +46,10 @@ function getFizzBuzz(/* num */) {
  *   5  => 120
  *   10 => 3628800
  */
-function getFactorial(/* n */) {
-  throw new Error('Not implemented');
+function getFactorial(n) {
+  let fact = 1;
+  for (let i = 2; i <= n; i += 1) fact *= i;
+  return fact;
 }
 
 
@@ -60,8 +65,12 @@ function getFactorial(/* n */) {
  *   5,10  =>  45 ( = 5+6+7+8+9+10 )
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
-function getSumBetweenNumbers(/* n1, n2 */) {
-  throw new Error('Not implemented');
+function getSumBetweenNumbers(n1, n2) {
+  let rangeSum = 0;
+  const begin = Math.min(n1, n2);
+  const end = Math.max(n1, n2);
+  for (let i = begin; i <= end; i += 1) rangeSum += i;
+  return rangeSum;
 }
 
 
@@ -80,8 +89,9 @@ function getSumBetweenNumbers(/* n1, n2 */) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isTriangle(a, b, c) {
+  if (a + b > c && b + c > a && a + c > b) return true;
+  return false;
 }
 
 
@@ -117,10 +127,14 @@ function isTriangle(/* a, b, c */) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function isInside(x, y, rect) {
+  return x >= rect.left && x <= rect.left + rect.width
+   && y >= rect.top && y <= rect.top + rect.height;
 }
-
+function doRectanglesOverlap(rect1, rect2) {
+  return isInside(rect1.left, rect1.top, rect2)
+  || isInside(rect2.left, rect2.top, rect1);
+}
 
 /**
  * Returns true, if point lies inside the circle, otherwise false.
@@ -148,8 +162,9 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  const dist = Math.sqrt((circle.center.x - point.x) ** 2 + (circle.center.y - point.y) ** 2);
+  return dist < circle.radius;
 }
 
 
@@ -164,10 +179,22 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function letterCount(str, letter) {
+  let count = 0;
+  let pos = str.indexOf(letter);
+  while (pos !== -1) {
+    count += 1;
+    pos = str.indexOf(letter, pos + 1);
+  }
+  return count;
 }
 
+function findFirstSingleChar(str) {
+  for (let i = 0; i < str.length; i += 1) {
+    if (letterCount(str, str[i]) === 1) return str[i];
+  }
+  return null;
+}
 
 /**
  * Returns the string representation of math interval,
@@ -191,10 +218,15 @@ function findFirstSingleChar(/* str */) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  let resStr = '';
+  const start = (a < b) ? a : b;
+  const end = (a > b) ? a : b;
+  resStr += (isStartIncluded === true) ? '[' : '(';
+  resStr += `${start}, ${end}`;
+  resStr += (isEndIncluded === true) ? ']' : ')';
+  return resStr;
 }
-
 
 /**
  * Reverse the specified string (put all chars in reverse order)
@@ -208,8 +240,10 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  let arr = str.split('');
+  arr = arr.reverse();
+  return arr.join('');
 }
 
 
@@ -225,10 +259,12 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  const str = num.toString();
+  let arr = str.split('');
+  arr = arr.reverse();
+  return parseInt(arr.join(''), 10);
 }
-
 
 /**
  * Validates the CCN (credit card number) and return true if CCN is valid
