@@ -19,8 +19,8 @@
  *    'Tue, 26 Jan 2016 13:48:02 GMT' => Date()
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
-function parseDataFromRfc2822(/* value */) {
-  throw new Error('Not implemented');
+function parseDataFromRfc2822(value) {
+  return Date.parse(value);
 }
 
 /**
@@ -34,10 +34,10 @@ function parseDataFromRfc2822(/* value */) {
  *    '2016-01-19T16:07:37+00:00'    => Date()
  *    '2016-01-19T08:07:37Z' => Date()
  */
-function parseDataFromIso8601(/* value */) {
-  throw new Error('Not implemented');
+function parseDataFromIso8601(value) {
+  const da = value.split(/\D+/);
+  return new Date(Date.UTC(da[0], da[1] - 1, da[2], da[3], da[4], da[5], da[6]));
 }
-
 
 /**
  * Returns true if specified date is leap year and false otherwise
@@ -53,10 +53,10 @@ function parseDataFromIso8601(/* value */) {
  *    Date(2012,1,1)    => true
  *    Date(2015,1,1)    => false
  */
-function isLeapYear(/* date */) {
-  throw new Error('Not implemented');
+function isLeapYear(date) {
+  const year = date.getFullYear();
+  return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 }
-
 
 /**
  * Returns the string represention of the timespan between two dates.
@@ -76,7 +76,6 @@ function isLeapYear(/* date */) {
 function timeSpanToString(/* startDate, endDate */) {
   throw new Error('Not implemented');
 }
-
 
 /**
  * Returns the angle (in radians) between the hands of an analog clock
