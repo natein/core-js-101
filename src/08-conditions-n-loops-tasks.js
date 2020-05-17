@@ -246,7 +246,6 @@ function reverseString(str) {
   return arr.join('');
 }
 
-
 /**
  * Reverse the specified integer number (put all digits in reverse order)
  *
@@ -286,8 +285,20 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const digits = ccn.toString();
+  let sum = 0;
+  for (let i = 0; i < digits.length; i += 1) {
+    let cardNum = parseInt(digits[i], 10);
+    if ((digits.length - i) % 2 === 0) {
+      cardNum *= 2;
+      if (cardNum > 9) {
+        cardNum -= 9;
+      }
+    }
+    sum += cardNum;
+  }
+  return sum % 10 === 0;
 }
 
 /**
@@ -304,8 +315,20 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  let source = num;
+  let digRoot = 0;
+  let temp = 0;
+  do {
+    digRoot = 0;
+    do {
+      temp = source / 10;
+      digRoot += Math.trunc(source) % 10;
+      source = temp;
+    } while (source !== 0);
+    source = digRoot;
+  } while (digRoot > 9);
+  return digRoot;
 }
 
 
@@ -386,8 +409,16 @@ function toNaryString(num, n) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  let path = '';
+  pathes[0].split('').some((x, i) => {
+    if (pathes.every((item) => item[i] === x)) {
+      path = `${path}${x}`;
+      return false;
+    }
+    return true;
+  }, '');
+  return path.slice(0, path.lastIndexOf('/') + 1);
 }
 
 
