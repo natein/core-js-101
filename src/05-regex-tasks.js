@@ -32,8 +32,9 @@
  * @return {RegExp}
  */
 function getRegexForGuid() {
-  return /^\{[0-9A-F]{8}(-[0-9A-F]{4}){3}-[0-9A-F]{12}\}$/i;
+  throw new Error('Not implemented');
 }
+
 
 /**
  * Returns the regexp that matches all the strings from first column
@@ -64,7 +65,7 @@ function getRegexForPitSpot() {
  *  - Contains a lowercase letter
  *  - Contains an uppercase letter
  *  - Contains a number
- *  - Valid passwords will only be alphanumeric characters.
+ *  - Valid passwords will only be alphanumeric characters (+ underscore).
  *
  * @param {number} minLength
  * @return {Regex}
@@ -77,8 +78,8 @@ function getRegexForPitSpot() {
  *   'PASSW0RD'.match(validator)  => false
  *   'Pa55'.match(validator) => false
  */
-function getPasswordValidator(minLength) {
-  return new RegExp(`^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[0-9a-zA-Z]{${minLength},}$`);
+function getPasswordValidator(/* minLength */) {
+  throw new Error('Not implemented');
 }
 
 
